@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvvmflutter/utils/utils.dart';
+import 'package:mvvmflutter/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../resource/components/round_button.dart';
 import '../utils/route/routes_name.dart';
@@ -37,6 +39,9 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+
+    final authViewMode = Provider.of<AuthViewMode>(context);
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -97,6 +102,7 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(height: 10,),
               RoundButton(title: 'Login',
+                loading: authViewMode.loading,
                 onPress: () {
                 if(emailController.text.isEmpty){
                   Utils.flushBarErrorMessage("Please Enter Email", context, Colors.red, Icon(Icons.error));
@@ -110,6 +116,12 @@ class _LoginState extends State<Login> {
                 else{
                   Utils.toastMessage("Very Good");
                   print("Api has been hit");
+                  Map data = {
+                    "email": emailController.text.toString(),
+                    "password": passController.text.toString()
+                  };
+                  authViewMode.loginApi(data, context);
+                  Navigator.pushNamed(context, RoutesName.home);
                 }
                 },)
               // Text("This is login screen"),

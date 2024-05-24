@@ -5,7 +5,7 @@ import 'package:mvvmflutter/data/appException.dart';
 import 'package:mvvmflutter/data/network/baseApiServices.dart';
 import 'package:http/http.dart' as http;
 
-class NetworkApiResponses extends BaseApiServices {
+class NetworkApiService extends BaseApiServices {
   @override
   Future getGetApiResponse(String url) async {
     dynamic responseJson;
@@ -30,7 +30,7 @@ class NetworkApiResponses extends BaseApiServices {
       ).timeout(Duration(seconds: 10));
 
       responseJson = responseReturn(response);
-      
+
     } on SocketException {
       throw FetchDataException("No internet connection");
     }
