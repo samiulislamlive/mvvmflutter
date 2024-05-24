@@ -4,6 +4,7 @@ import 'package:mvvmflutter/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'utils/route/routes_name.dart';
+import 'view_model/user_view_model.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => AuthViewMode()),
+          ChangeNotifierProvider(create: (_) => UserViewModel()),
         ],
         child: MaterialApp(
           themeMode: ThemeMode.light,
